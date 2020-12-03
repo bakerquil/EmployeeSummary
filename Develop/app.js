@@ -8,8 +8,7 @@ const fs = require("fs");
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
-const render = require("./lib/htmlRenderer");
-const Choice = require("inquirer/lib/objects/choice");
+
 let employees = [];
 
 function addMember() {
@@ -127,10 +126,8 @@ function initApp() {
     });
 }*/
 
-
-
 function startHtml() {
-    const html = `<!DOCTYPE html>
+  const html = `<!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -145,24 +142,24 @@ function startHtml() {
         </nav>
         <div class="container">
             <div class="row">`;
-    fs.writeFile("../test.html", html, function(err) {
-        if (err) {
-            console.log(err);
-        }
-    });
-    console.log("start");
+  fs.writeFile("../test.html", html, function (err) {
+    if (err) {
+      console.log(err);
+    }
+  });
+  console.log("start");
 }
 
 function addHtml(member) {
-    return new Promise(function(resolve, reject) {
-        const name = member.getName();
-        const role = member.getRole();
-        const id = member.getId();
-        const email = member.getEmail();
-        let data = "";
-        if (role === "Engineer") {
-            const gitHub = member.getGithub();
-            data = `<div class="col-6">
+  return new Promise(function (resolve, reject) {
+    const name = member.getName();
+    const role = member.getRole();
+    const id = member.getId();
+    const email = member.getEmail();
+    let data = "";
+    if (role === "Engineer") {
+      const gitHub = member.getGithub();
+      data = `<div class="col-6">
             <div class="card mx-auto mb-3" style="width: 18rem">
             <h5 class="card-header">${name}<br /><br />Engineer</h5>
             <ul class="list-group list-group-flush">
@@ -172,9 +169,9 @@ function addHtml(member) {
             </ul>
             </div>
         </div>`;
-        } else if (role === "Intern") {
-            const school = member.getSchool();
-            data = `<div class="col-6">
+    } else if (role === "Intern") {
+      const school = member.getSchool();
+      data = `<div class="col-6">
             <div class="card mx-auto mb-3" style="width: 18rem">
             <h5 class="card-header">${name}<br /><br />Intern</h5>
             <ul class="list-group list-group-flush">
@@ -184,9 +181,9 @@ function addHtml(member) {
             </ul>
             </div>
         </div>`;
-        } else {
-            const officePhone = member.getOfficeNumber();
-            data = `<div class="col-6">
+    } else {
+      const officePhone = member.getOfficeNumber();
+      data = `<div class="col-6">
             <div class="card mx-auto mb-3" style="width: 18rem">
             <h5 class="card-header">${name}<br /><br />Manager</h5>
             <ul class="list-group list-group-flush">
@@ -195,37 +192,31 @@ function addHtml(member) {
                 <li class="list-group-item">Office Phone: ${officePhone}</li>
             </ul>
             </div>
-        </div>`
-        }
-        console.log("adding team member");
-        fs.appendFile("../test.html", data, function (err) {
-            if (err) {
-                return reject(err);
-            };
-            return resolve();
-        });
+        </div>`;
+    }
+    console.log("adding team member");
+    fs.appendFile("../test.html", data, function (err) {
+      if (err) {
+        return reject(err);
+      }
+      return resolve();
     });
-    
-            
-    
-        
-    
-    
+  });
 }
 
 function finishHtml() {
-    const html = ` </div>
+  const html = ` </div>
     </div>
     
 </body>
 </html>`;
 
-    fs.appendFile("../test.html", html, function (err) {
-        if (err) {
-            console.log(err);
-        };
-    });
-    console.log("end");
+  fs.appendFile("../test.html", html, function (err) {
+    if (err) {
+      console.log(err);
+    }
+  });
+  console.log("end");
 }
 
 initApp();
