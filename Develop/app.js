@@ -128,20 +128,38 @@ function initApp() {
 
 function startHtml() {
   const html = `<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <title>Team Profile</title>
-    </head>
-    <body>
-        <nav class="navbar navbar-dark bg-dark mb-5">
-            <span class="navbar-brand mb-0 h1 w-100 text-center">Team Profile</span>
-        </nav>
-        <div class="container">
-            <div class="row">`;
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>My Team</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/c502137733.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 jumbotron mb-3 team-heading">
+                <h1 class="text-center">My Team</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="team-area col-12 d-flex justify-content-center">
+                
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+`;
   fs.writeFile("../test.html", html, function (err) {
     if (err) {
       console.log(err);
@@ -159,40 +177,52 @@ function addHtml(member) {
     let data = "";
     if (role === "Engineer") {
       const gitHub = member.getGithub();
-      data = `<div class="col-6">
-            <div class="card mx-auto mb-3" style="width: 18rem">
-            <h5 class="card-header">${name}<br /><br />Engineer</h5>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">ID: ${id}</li>
-                <li class="list-group-item">Email Address: ${email}</li>
-                <li class="list-group-item">GitHub: ${gitHub}</li>
+      data = `<div class="card employee-card">
+        <div class="card-header">
+            <h2 class="card-title">${name}</h2>
+            <h3 class="card-title"><i class="fas fa-glasses mr-2"></i>${role}</h3>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                <li class="list-group-item">ID: ${ id }</li>
+                <li class="list-group-item">Email: <a href="mailto:${email}">${email}</a></li>
+                <li class="list-group-item">GitHub: <a href="https://github.com/${gitHub}" target="_blank" rel="noopener noreferrer">${ gitHub}</a></li>
             </ul>
-            </div>
-        </div>`;
+        </div>
+    </div>
+    `
     } else if (role === "Intern") {
       const school = member.getSchool();
-      data = `<div class="col-6">
-            <div class="card mx-auto mb-3" style="width: 18rem">
-            <h5 class="card-header">${name}<br /><br />Intern</h5>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">ID: ${id}</li>
-                <li class="list-group-item">Email Address: ${email}</li>
-                <li class="list-group-item">School: ${school}</li>
-            </ul>
-            </div>
-        </div>`;
+      data = `<div class="card employee-card">
+      <div class="card-header">
+          <h2 class="card-title">${name}</h2>
+          <h3 class="card-title"><i class="fas fa-user-graduate mr-2"></i>${role}</h3>
+      </div>
+      <div class="card-body">
+          <ul class="list-group">
+              <li class="list-group-item">ID: ${id}</li>
+              <li class="list-group-item">Email: <a href="mailto:${email}">l }${email}</a></li>
+              <li class="list-group-item">School: ${school}</li>
+          </ul>
+      </div>
+  </div>
+  `;
     } else {
-      const officePhone = member.getOfficeNumber();
-      data = `<div class="col-6">
-            <div class="card mx-auto mb-3" style="width: 18rem">
-            <h5 class="card-header">${name}<br /><br />Manager</h5>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">ID: ${id}</li>
-                <li class="list-group-item">Email Address: ${email}</li>
-                <li class="list-group-item">Office Phone: ${officePhone}</li>
-            </ul>
-            </div>
-        </div>`;
+      const officeNumber = member.getOfficeNumber();
+      data =` <div class="card employee-card">
+      <div class="card-header">
+          <h2 class="card-title">${name}</h2>
+          <h3 class="card-title"><i class="fas fa-mug-hot mr-2"></i>${role}</h3>
+      </div>
+      <div class="card-body">
+          <ul class="list-group">
+              <li class="list-group-item">ID: ${id}</li>
+              <li class="list-group-item">Email: <a href="mailto:${email}">${ email }</a></li>
+              <li class="list-group-item">Office number: ${officeNumber}</li>
+          </ul>
+      </div>
+  </div>
+  `;
     }
     console.log("adding team member");
     fs.appendFile("../test.html", data, function (err) {
